@@ -1,0 +1,26 @@
+.description {
+	background-color: #0c1036;
+}
+
+.filaPar {
+	background-color: #07294bf5;
+	color: #fff;
+}
+.filaImpar {
+	background-color: #6c757d;
+	color: #fff;
+}
+
+.row-spacing {
+	height: 2rem;
+}
+.video-container {
+	padding-bottom: 56, 25%;
+	width: 100%;
+	height: auto;
+	margin: 0;
+}
+.YouTubePlayer {
+	width: 100%;
+	height: 100%;
+}
