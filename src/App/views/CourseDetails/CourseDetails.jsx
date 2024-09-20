@@ -9,6 +9,7 @@ export default function CourseDetails() {
 	const { id } = useParams();
 	const [course, setCourse] = useState();
 	const [selectedModuleIndex, setSelectedModuleIndex] = useState(0);
+	const [completedModules, setCompletedModules] = useState({});
 
 	useEffect(() => {
 		if (!id) return;
@@ -22,13 +23,32 @@ export default function CourseDetails() {
 		return () => controller.abort();
 	}, [id]);
 
-	if (!course) return null;
+	useEffect(() => {
+		const savedProgress = JSON.parse(
+			localStorage.getItem("completedModules") || "{}"
+		);
+		setCompletedModules(savedProgress);
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem("completedModules", JSON.stringify(completedModules));
+	}, [completedModules]);
+
 	const handleModuleClick = index => {
 		setSelectedModuleIndex(index);
 	};
 
+	const handleVideoEnd = index => {
+		setCompletedModules(prevState => ({
+			...prevState,
+			[index]: true
+		}));
+	};
+
+	if (!course) return null;
+
 	return (
-		<article>
+		<article className="mb-5">
 			<Row>
 				<h1 className="_greenText_18we7_5 _courseh1_1317y_147 m-5 d-flex justifiy-content-left">
 					{course.course.title}
@@ -41,11 +61,12 @@ export default function CourseDetails() {
 							<tr
 								key={module.id}
 								className={`fila${index % 2 === 0 ? "Par" : "Impar"} row-spacing align-items-center`}
-								onClick={() => handleModuleClick(index)} // Cambiar el módulo al hacer clic
+								onClick={() => handleModuleClick(index)}
 								style={{ cursor: "pointer" }}
 							>
-								<td>
+								<td className="p-3">
 									Clase {index + 1}: {module.title}
+									{completedModules[index] && <span>✔️</span>}
 								</td>
 							</tr>
 						))}
@@ -56,6 +77,8 @@ export default function CourseDetails() {
 						<YouTubePlayer
 							className="YouTubePlayer"
 							url={course.course.modules[selectedModuleIndex].video_url}
+							controls={true}
+							onEnded={() => handleVideoEnd(selectedModuleIndex)}
 						/>
 					</div>
 				</Col>
