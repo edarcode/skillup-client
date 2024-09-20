@@ -6,8 +6,9 @@ function Footer() {
 			<footer className="border-top">
 				<div className="d-flex flex-column flex-sm-row justify-content-between align-items-center m-2">
 					<div>
-						<a href="">
+						<a href="" className="d-flex flex-row align-items-center">
 							<img src={logo3} alt="Logo" width="100" height="100" />
+							<span className="ms-2 fs-4 fw-bold">{`<Skill Up>`}</span>{" "}
 						</a>
 					</div>
 					<div className="Links d-flex flex-wrap justify-content-between">
