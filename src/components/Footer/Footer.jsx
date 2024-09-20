@@ -1,4 +1,4 @@
-import logo3 from "./logo3.png";
+import Logo from "../Logo/Logo.jsx";
 
 function Footer() {
 	return (

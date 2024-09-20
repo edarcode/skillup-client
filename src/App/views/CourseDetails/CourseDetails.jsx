@@ -17,7 +17,13 @@ export default function CourseDetails() {
 		const controller = new AbortController();
 
 		geCourseByIdService(controller.signal, id)
-			.then(data => setCourse(data))
+			.then(data => {
+				setCourse(data);
+				// Establecer el ID del primer video por defecto
+				if (data.course.modules.length > 0) {
+					setCurrentVideoId(extractVideoId(data.course.modules[0].video_url));
+				}
+			})
 			.catch(err => console.log(err));
 
 		return () => controller.abort();
@@ -43,6 +49,7 @@ export default function CourseDetails() {
 			...prevState,
 			[index]: true
 		}));
+
 	};
 
 	if (!course) return null;

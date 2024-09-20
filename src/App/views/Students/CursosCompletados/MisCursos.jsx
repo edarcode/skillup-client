@@ -6,47 +6,48 @@ import {
 	ProgressBar,
 	Button
 } from "react-bootstrap";
-import DataEjemplo from "./DataEjemplo";
 import "./MisCursos.css";
 import { Link } from "react-router-dom";
 import { COURSE_DETAILS } from "../../../router/children.jsx";
+import { formatDate } from "../../../../utils/formatDate.js";
 
-const Cards = () => {
+const Cards = ({ allCourse }) => {
+	if (!allCourse) return null;
 	return (
 		<Container fluid className="cardContainer" id="MisCursos">
 			<Row>
 				<Col>
-					<h2>Mis Cursos</h2>
+					<h2 className="heroText_ppal">Mis Cursos</h2>
 				</Col>
 			</Row>
-			<Row>
-				{DataEjemplo.map(card => (
-					<Link key={card.id} to={COURSE_DETAILS.to + card.id}>
-						<Col xs={12} md={6} lg={4}>
+			<Row className="justify-content-center">
+				{allCourse.map(card => (
+					//  linkea al curso especifico segun id
+					<Link
+						className="w-21rem"
+						xs={12}
+						md={6}
+						lg={4}
+						key={card.id}
+						to={COURSE_DETAILS.to + card.id}
+					>
+						<Col>
 							<Card className="mb-4">
 								{/* Imagen del curso */}
 								<div className="cardImg">
-									<Card.Img variant="top" src={card.imageUrl} />
+									<Card.Img variant="top" src={card.cover_image} />
 								</div>
 								<Card.Body className="position-relative">
-									{/* Etiqueta de horas */}
+									<Card.Title>{card.title}</Card.Title>
 
-									{/* Título del curso */}
-									<Card.Title>{card.name}</Card.Title>
-
-									{/* Texto descriptivo */}
-									<Card.Text>Fecha Inicio: {card.inicio}</Card.Text>
-
-									{/* Descripción */}
-									<Card.Text> Fecha Término: {card.date}</Card.Text>
-
-									{/* Costo */}
-									{/* <Card.Text>Costo: {card.cost}</Card.Text> */}
+									<Card.Text>
+										Fecha Inicio: {formatDate(card.date_created)}
+									</Card.Text>
 
 									{/* Barra de progreso */}
 									<ProgressBar
 										now={card.progreso}
-										label={`${card.progreso}%`}
+										label={`${1}%`}
 										className="mb-3"
 										variant="dark"
 									/>
