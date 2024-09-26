@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { geCourseByIdService } from "./service/geCourseByIdService.js";
 import { Row, Col, Table } from "react-bootstrap";
+import { PiCheckFatDuotone } from "react-icons/pi";
 import YouTubePlayer from "react-player/youtube.js";
 import "./module.css";
 
@@ -19,7 +20,6 @@ export default function CourseDetails() {
 		geCourseByIdService(controller.signal, id)
 			.then(data => {
 				setCourse(data);
-				// Establecer el ID del primer video por defecto
 				if (data.course.modules.length > 0) {
 					setCurrentVideoId(extractVideoId(data.course.modules[0].video_url));
 				}
@@ -31,14 +31,17 @@ export default function CourseDetails() {
 
 	useEffect(() => {
 		const savedProgress = JSON.parse(
-			localStorage.getItem("completedModules") || "{}"
+			localStorage.getItem(`course_${id}_progress`) || "{}"
 		);
 		setCompletedModules(savedProgress);
 	}, []);
 
 	useEffect(() => {
-		localStorage.setItem("completedModules", JSON.stringify(completedModules));
-	}, [completedModules]);
+		localStorage.setItem(
+			`course_${id}_progress`,
+			JSON.stringify(completedModules)
+		);
+	}, [completedModules, id]);
 
 	const handleModuleClick = index => {
 		setSelectedModuleIndex(index);
@@ -56,7 +59,7 @@ export default function CourseDetails() {
 	return (
 		<article className="mb-5">
 			<Row>
-				<h1 className="_greenText_18we7_5 _courseh1_1317y_147 m-5 d-flex justifiy-content-left">
+				<h1 className="tituloCurso _courseh1_1317y_147 m-5 d-flex justifiy-content-left">
 					{course.course.title}
 				</h1>
 			</Row>
@@ -68,11 +71,16 @@ export default function CourseDetails() {
 								key={module.id}
 								className={`fila${index % 2 === 0 ? "Par" : "Impar"} row-spacing align-items-center`}
 								onClick={() => handleModuleClick(index)}
-								style={{ cursor: "pointer" }}
 							>
-								<td className="p-3">
-									Clase {index + 1}: {module.title}
-									{completedModules[index] && <span>✔️</span>}
+								<td className="p-3 filaModulo">
+									<span className="iconoModulo">
+										Clase {index + 1}: {module.title}
+										{completedModules[index] && (
+											<span className="ms-2 tilde">
+												<PiCheckFatDuotone />
+											</span>
+										)}
+									</span>
 								</td>
 							</tr>
 						))}
