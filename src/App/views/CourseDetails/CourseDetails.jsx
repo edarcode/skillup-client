@@ -52,6 +52,9 @@ export default function CourseDetails() {
 			...prevState,
 			[index]: true
 		}));
+		if (index + 1 < course.course.modules.length) {
+			setSelectedModuleIndex(index + 1);
+		}
 	};
 
 	if (!course) return null;
