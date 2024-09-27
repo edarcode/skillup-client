@@ -69,17 +69,12 @@ export default function CourseDetails() {
 						{course.course.modules.map((module, index) => (
 							<tr
 								key={module.id}
-								className={`fila${index % 2 === 0 ? "Par" : "Impar"} row-spacing align-items-center`}
+								className={`fila ${completedModules[index] ? "visto" : ""} row-spacing align-items-center`}
 								onClick={() => handleModuleClick(index)}
 							>
-								<td className="p-3 filaModulo">
+								<td className="p-3">
 									<span className="iconoModulo">
 										Clase {index + 1}: {module.title}
-										{completedModules[index] && (
-											<span className="ms-2 tilde">
-												<PiCheckFatDuotone />
-											</span>
-										)}
 									</span>
 								</td>
 							</tr>

@@ -1,21 +1,24 @@
 .tituloCurso {
 	color: #0bc9cf;
 }
-.description {
-	background-color: #0c1036;
-}
-
-.filaPar {
+.fila {
+	cursor: pointer;
 	background-color: #07294bf5;
 	color: #fff;
 	margin-bottom: 1.5px;
+	transition: background-color 0.3s ease;
 }
-.filaImpar {
+.fila.visto {
 	background-color: #6c757d;
 	color: #fff;
 	padding-bottom: 1.5px !important;
 }
-
+.fila:hover {
+	background-color: #6c757d;
+}
+.fila.visto:hover {
+	background-color: #07294bf5;
+}
 .video-container {
 	padding-bottom: 56, 25%;
 	width: 100%;
@@ -26,20 +29,6 @@
 	width: 60vw !important;
 	height: 33.75vw !important;
 }
-
-.tilde svg {
-	min-width: 30px; /* Asegura un tamaño mínimo del contenedor */
-	min-height: 30px;
-	color: green;
-}
-
-.filaModulo {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	cursor: pointer;
-}
-
 .iconoModulo {
 	width: 100%;
 	background-color: transparent !important;
