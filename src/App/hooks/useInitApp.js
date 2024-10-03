@@ -9,7 +9,7 @@ export const useInitApp = () => {
 		const controller = new AbortController();
 		refreshToken(controller.signal).finally(() => setLoading(false));
 
-		() => controller.abort();
+		return () => controller.abort();
 	}, [refreshToken]);
 
 	return { loading };
