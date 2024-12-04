@@ -70,7 +70,7 @@ const About = () => {
 			name: "Tamara Contreras",
 			role: "Desarrolladora Front-end",
 			img: TeamImg.Tamara,
-			linkedin: "https://linkedin.com/in/tamaracontreras",
+			linkedin: "https://www.linkedin.com/in/tamara-contreras/",
 			github: "https://github.com/tamaracontreras"
 		},
 		{
